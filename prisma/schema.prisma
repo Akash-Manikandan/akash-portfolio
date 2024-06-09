@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "metrics"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model PersonalInfo {
+  id             String     @id @default(cuid())
+  goals          String[]
+  developer      Developer?
+  languageStatus Language[]
+  resume         String     @default("")
+}
+
+model Language {
+  id             String       @id @default(cuid())
+  name           String       @unique
+  percent        Int
+  lang           String
+  images         String[]
+  PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
+  personalInfoId String
+}
+
+model Works {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  deployment  String      @unique
+  github      String      @unique
+  description String
+  media       Media[]
+  developers  Developer[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  order       Int         @default(0)
+  techStack   TechStack[]
+}
+
+model Developer {
+  id             String        @id @default(cuid())
+  name           String        @unique
+  email          String        @unique
+  linkedIn       String        @unique
+  github         String        @unique
+  twitter        String        @unique
+  otherContacts  String[]
+  images         String[]
+  about          String
+  specifics      String[]
+  Works          Works[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  PersonalInfo   PersonalInfo? @relation(fields: [personalInfoId], references: [id])
+  personalInfoId String?       @unique
+}
+
+model Visitor {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ip        String
+  location  Json?
+  visits    BigInt
+  refresh   BigInt
+}
+
+model Media {
+  id          Int     @id @default(autoincrement())
+  description String?
+  url         String  @unique
+  isThumbnail Boolean @default(false)
+  isImage     Boolean @default(true)
+  Works       Works   @relation(fields: [worksId], references: [id])
+  worksId     String
+}
+
+model TechStack {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  works       Works[]
+}
