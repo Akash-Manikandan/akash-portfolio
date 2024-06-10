@@ -21,12 +21,7 @@ import { DarkModeToggle } from "@/components/theme/dark-mode-toggle";
 
 import { Alex_Brush } from "next/font/google";
 
-import dynamic from "next/dynamic";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-
-const MediaQuery = dynamic(() => import("react-responsive"), {
-  ssr: false,
-});
 
 const alexbrush = Alex_Brush({ subsets: ["latin"], weight: ["400"] });
 
@@ -59,9 +54,9 @@ const Navbar = () => {
       <TypographyH2 className={alexbrush.className + " max-sm:flex-1"}>
         Akash
       </TypographyH2>
-      <MediaQuery maxWidth={637}>
+      <div className="sm:hidden">
         <DropdownMenu>
-          <DropdownMenuTrigger className="px-2 max-sm:mr-2 border border-input bg-background shadow-sm hover:bg-accent rounded-md focus-visible:outline-none hover:text-accent-foreground">
+          <DropdownMenuTrigger className="p-[10px] max-sm:mr-2 border border-input bg-background shadow-sm hover:bg-accent rounded-md focus-visible:outline-none hover:text-accent-foreground">
             <HamburgerMenuIcon />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -72,22 +67,22 @@ const Navbar = () => {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-      </MediaQuery>
-      <MediaQuery minWidth={638}>
+      </div>
+      <div className="max-sm:hidden">
         <NavigationMenu>
           <NavigationMenuList>
             {listNav.map((item, index) => (
               <NavigationMenuItem key={`${index}`}>
                 <Link href={item.href} legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    {item.title}
+                    <p className="text-lg">{item.title}</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-      </MediaQuery>
+      </div>
       <DarkModeToggle />
     </header>
   );

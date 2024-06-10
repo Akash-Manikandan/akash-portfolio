@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Mono } from "next/font/google";
+import { Fredoka } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/custom/Navbar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
-const notosansmono = Noto_Sans_Mono({ subsets: ["latin"], weight: ["400"] });
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={notosansmono.className}>
+      <body className={fredoka.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
