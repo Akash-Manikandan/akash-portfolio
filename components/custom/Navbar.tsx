@@ -22,10 +22,13 @@ import { DarkModeToggle } from "@/components/theme/dark-mode-toggle";
 import { Alex_Brush } from "next/font/google";
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { usePathname } from "next/navigation";
 
 const alexbrush = Alex_Brush({ subsets: ["latin"], weight: ["400"] });
 
 const Navbar = () => {
+  const pathname = usePathname();
+
   const listNav = [
     {
       title: "Home",
@@ -74,7 +77,10 @@ const Navbar = () => {
             {listNav.map((item, index) => (
               <NavigationMenuItem key={`${index}`}>
                 <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    active={pathname.includes(item.title.toLowerCase())}
+                    className={navigationMenuTriggerStyle()}
+                  >
                     <p className="text-lg">{item.title}</p>
                   </NavigationMenuLink>
                 </Link>

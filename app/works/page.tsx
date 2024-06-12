@@ -25,9 +25,9 @@ import {
 } from "@/components/ui/carousel";
 
 import { GitHubLogoIcon, Link2Icon } from "@radix-ui/react-icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import TextEllipsis from "@/components/custom/TextEllipsis";
+import Link from "next/link";
 
 const getData = async () => {
   const data = await prisma.works.findMany({
@@ -50,7 +50,9 @@ const Works = async () => {
       {works.map((item) => (
         <Card key={item.id} className="m-6">
           <CardHeader>
-            <CardTitle className="text-xl">{item.name}</CardTitle>
+            <CardTitle className="text-xl">
+              <Link href={`/works/${item.id}`}>{item.name}</Link>
+            </CardTitle>
             <CardDescription>
               {item.techStack.map((tech) => (
                 <Badge variant="secondary" className="mt-2 mx-2" key={tech.id}>
@@ -109,13 +111,7 @@ const Works = async () => {
               <HoverCardContent>
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-3 items-center">
-                    <Avatar>
-                      <AvatarImage
-                        alt="GitHub"
-                        src="https://yyhj2qom6nwl5skj.public.blob.vercel-storage.com/logos/GitHub.png"
-                      />
-                      <AvatarFallback>GH</AvatarFallback>
-                    </Avatar>
+                    <GitHubLogoIcon width={35} height={35} />
                     <a className="underline" href={item.github} target="_blank">
                       @{item.github.split("/").at(-1)}
                     </a>
