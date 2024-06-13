@@ -35,35 +35,59 @@ const getData = async () => {
       createdAt: "desc",
     },
     include: {
-      media: true,
-      techStack: true,
+      techStack: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      media: {
+        where: {
+          isThumbnail: true,
+        },
+        take: 1,
+      },
     },
   });
   return data;
 };
-
 const Works = async () => {
   const works = await getData();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 mx-40">
       {works.map((item) => (
         <Card key={item.id} className="m-6">
+          <CardContent className="p-4 flex items-center justify-center">
+            {item.media.map((media) => (
+              <Image
+                src={media.url}
+                width={1280}
+                height={800}
+                quality={100}
+                alt={media.description || ""}
+                key={media.id}
+                className="grayscale-[60%] hover:grayscale-0"
+              />
+            ))}
+          </CardContent>
           <CardHeader>
             <CardTitle className="text-xl">
               <Link href={`/works/${item.id}`}>{item.name}</Link>
             </CardTitle>
             <CardDescription>
+              <p className="text-lg text-justify py-4">{item.description}</p>
               {item.techStack.map((tech) => (
-                <Badge variant="secondary" className="mt-2 mx-2" key={tech.id}>
+                <Badge
+                  variant="secondary"
+                  className="mt-2 mx-2 first:ml-0"
+                  key={tech.id}
+                >
                   {tech.name}
                 </Badge>
               ))}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <p className="text-lg">{item.description}</p>
-          </CardContent>
           <CardFooter className="flex justify-between">
             <HoverCard>
               <HoverCardTrigger target="_blank" href={item.deployment}>
@@ -84,7 +108,7 @@ const Works = async () => {
                               alt="Image"
                               width={700}
                               height={550}
-                              className="rounded-md object-cover"
+                              className="rounded-md object-cover grayscale-[40%] hover:grayscale-0"
                             />
                           </CarouselItem>
                         ))}

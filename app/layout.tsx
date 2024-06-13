@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={fredoka.className}>
+      <body className={fredoka.className+' mt-20'}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

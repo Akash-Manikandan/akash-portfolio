@@ -9,11 +9,6 @@ const getWork = async (id: string) => {
       developers: {
         include: {
           PersonalInfo: true,
-          Works: {
-            include:{
-                media: true
-            }
-          },
         },
       },
       media: true,
@@ -25,7 +20,13 @@ const getWork = async (id: string) => {
 
 async function WorkPage({ params }: { params: { id: string } }) {
   const data = await getWork(params.id);
-  return <pre>{JSON.stringify(data, undefined, 2)}</pre>;
+  return (
+    <div>
+      {data.map((item) => (
+        <div></div>
+      ))}
+    </div>
+  );
 }
 
 export default WorkPage;

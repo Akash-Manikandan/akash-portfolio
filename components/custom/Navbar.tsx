@@ -53,7 +53,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="p-4 flex justify-between">
+    <header className="z-20 fixed top-0 w-full drop-shadow-sm shadow-sm px-8 py-4 items-center  backdrop-filter backdrop-blur-[7px] dark:shadow-[10px_10px_10px_rgba(30,30,30,0.1)]  border-l-[rgba(0,0,0,0.3)] border-t-[rgba(0,0,0,0.8)] border-t-[1px] border-l-[1px] p-4 flex justify-between">
       <TypographyH2 className={alexbrush.className + " max-sm:flex-1"}>
         Akash
       </TypographyH2>
