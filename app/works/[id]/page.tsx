@@ -22,9 +22,9 @@ async function WorkPage({ params }: { params: { id: string } }) {
   const data = await getWork(params.id);
   return (
     <div>
-      {data.map((item) => (
+      {/* {data.map((item) => (
         <div></div>
-      ))}
+      ))} */}
     </div>
   );
 }
