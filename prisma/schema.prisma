@@ -21,6 +21,7 @@ model PersonalInfo {
   developer      Developer?
   languageStatus Language[]
   resume         String     @default("")
+  me             Boolean    @default(false)
 }
 
 model Language {
@@ -39,8 +40,12 @@ model Works {
   deployment  String      @unique
   github      String      @unique
   description String
+  tagLine     String      @default("")
   media       Media[]
   developers  Developer[]
+  timeLine    String?
+  role        String      @default("Developer")
+  company     String      @default("Personal")
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   order       Int         @default(0)
@@ -76,13 +81,14 @@ model Visitor {
 }
 
 model Media {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   description String?
-  url         String  @unique
-  isThumbnail Boolean @default(false)
-  isImage     Boolean @default(true)
-  Works       Works   @relation(fields: [worksId], references: [id])
+  url         String   @unique
+  isThumbnail Boolean  @default(false)
+  isImage     Boolean  @default(true)
+  Works       Works    @relation(fields: [worksId], references: [id])
   worksId     String
+  createdAt   DateTime @default(now())
 }
 
 model TechStack {
