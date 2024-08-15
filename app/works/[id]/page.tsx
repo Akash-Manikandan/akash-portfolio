@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation'
 import { Lora } from "next/font/google";
 import prisma from "@/lib/database";
@@ -7,12 +8,21 @@ import WorkCarousel from "@/components/custom/WorkCarousel";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Navigators from './Navigators';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import TextEllipsis from '@/components/custom/TextEllipsis';
+import TooltipWrapper from '@/components/custom/TooltipWrapper';
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });
 
 type WithNavigation<T> = T & {
   next: string | undefined;
   prev: string | undefined;
+};
+
+export const metadata: Metadata = {
+  title: "Akash M - Works",
+  description: "Portfolio of Akash M",
 };
 
 const getWork = async (id: string) => {
@@ -25,6 +35,8 @@ const getWork = async (id: string) => {
         select: {
           id: true,
           name: true,
+          github: true,
+          about: true,
           PersonalInfo: {
             select: {
               me: true,
@@ -84,7 +96,6 @@ async function WorkPage({ params }: { params: { id: string } }) {
 
   const handleNavigation = async (id: string | undefined) => {
     'use server';
-
     if (id) redirect(`/works/${id}`);
   }
 
@@ -114,24 +125,41 @@ async function WorkPage({ params }: { params: { id: string } }) {
             </div>
             <div className="w-[340px] h-fit max-md:w-auto flex flex-col gap-12">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl uppercase">Role</h2>
+                <h2 className="text-xl uppercase max-md:capitalize">Role</h2>
                 <p>{item.role}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl uppercase">Company</h2>
+                <h2 className="text-xl uppercase max-md:capitalize">Company</h2>
                 <p>{item.company}</p>
               </div>
               {item.timeLine && (<div className="flex flex-col gap-2">
-                <h2 className="text-xl uppercase">TimeLine</h2>
+                <h2 className="text-xl uppercase max-md:capitalize">Timeline</h2>
                 <p>{item.timeLine}</p>
               </div>)}
               <div className="flex flex-col gap-2">
                 <div className="flex items-end gap-1">
-                  <h2 className="text-xl uppercase">Developer</h2><span className="text-xl">(s)</span>
+                  <h2 className="text-xl uppercase max-md:capitalize">Developer</h2><span className="text-xl">(s)</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {item.developers.map((developer) => (
-                    <Badge key={developer.id} variant={developer.PersonalInfo?.me ? "default" : "outline"} className="mt-2">{developer.name}</Badge>
+                    <HoverCard key={developer.id}>
+                      <HoverCardTrigger target="_blank" href={developer.github}>
+                        <Badge variant={developer.PersonalInfo?.me ? "default" : "outline"} className="mt-2">{developer.name}</Badge>
+                      </HoverCardTrigger>
+                      <HoverCardContent>
+                        <div className="flex flex-col gap-2">
+                          <div className="flex gap-3 items-center">
+                            <GitHubLogoIcon width={35} height={35} />
+                            <a className="underline" href={item.github} target="_blank">
+                              @{developer.github.split("/").at(-1)}
+                            </a>
+                          </div>
+                          <TooltipWrapper content={developer.about}>
+                            <TextEllipsis maxLine="5" text={developer.about} />
+                          </TooltipWrapper>
+                        </div>
+                      </HoverCardContent>
+                    </HoverCard>
                   ))}
                 </div>
               </div>

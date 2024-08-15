@@ -19,6 +19,12 @@ import TextEllipsis from "@/components/custom/TextEllipsis";
 import Link from "next/link";
 import CardCarousel from "@/components/custom/CardCarousel";
 import TechBadge from "@/components/custom/TechBadge";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Akash M - Works",
+  description: "Portfolio of Akash M",
+};
 
 const getData = async () => {
   const data = await prisma.works.findMany({

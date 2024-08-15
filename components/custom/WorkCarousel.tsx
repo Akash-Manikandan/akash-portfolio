@@ -16,7 +16,7 @@ type WorkCarouselData = {
 
 const WorkCarousel = ({ data }: { data: WorkCarouselData }) => {
     const plugin = useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true, stopOnFocusIn: true })
+        Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true, stopOnFocusIn: true })
     )
     return (
         <Carousel
@@ -24,10 +24,10 @@ const WorkCarousel = ({ data }: { data: WorkCarouselData }) => {
             opts={{ loop: true }}
             plugins={[plugin.current]}
         >
-            <CarouselContent>
+            <CarouselContent >
                 {data.map((media) => (
-                    <CarouselItem key={media.id}>
-                        <div className="flex items-center pt-2 justify-center p-8 max-md:p-2">
+                    <CarouselItem key={media.id} className="h-[600px] max-md:h-80">
+                        <div className="flex items-center pt-2 justify-center w-full h-full p-8 max-md:p-2">
                             <Image
                                 src={media.url}
                                 width={1080}

@@ -3,7 +3,7 @@ import LinesEllipsis from "react-lines-ellipsis";
 
 function TextEllipsis({ text, maxLine }: { text: string; maxLine: string }) {
   return (
-    <div>
+    <div className="text-left">
       {" "}
       <LinesEllipsis
         text={text}
