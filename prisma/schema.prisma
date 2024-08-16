@@ -16,12 +16,41 @@ datasource db {
 }
 
 model PersonalInfo {
-  id             String     @id @default(cuid())
+  id             String             @id @default(cuid())
   goals          String[]
   developer      Developer?
   languageStatus Language[]
-  resume         String     @default("")
-  me             Boolean    @default(false)
+  about          String             @default("")
+  resume         String             @default("")
+  me             Boolean            @default(false)
+  education      Education[]
+  professional   ProfessionalWork[]
+}
+
+model Education {
+  id             String       @id @default(cuid())
+  name           String       @unique
+  degree         String
+  field          String
+  duration       String
+  location       String
+  description    String
+  marks          String
+  images         String[]
+  PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
+  personalInfoId String
+}
+
+model ProfessionalWork {
+  id             String       @id @default(cuid())
+  companyName    String
+  role           String
+  duration       String
+  location       String
+  description    String
+  images         String[]
+  PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
+  personalInfoId String
 }
 
 model Language {
