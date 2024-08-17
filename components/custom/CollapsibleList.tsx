@@ -60,7 +60,7 @@ const CollapsibleList = ({ list }: { list: Position[] }) => {
                 </h4>
                 <CollapsibleTrigger disabled={list.length === 1} asChild>
                     <div>
-                        <Toggle aria-label="Toggle" disabled={list.length === 1} variant="ghost" size="sm" className="w-9 p-0">
+                        <Toggle aria-label="Toggle" disabled={list.length === 1} variant="default" size="sm" className="w-9 p-0">
                             <ChevronsUpDown className="h-4 w-4" />
                         </Toggle>
                     </div>
