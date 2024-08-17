@@ -31,35 +31,41 @@ export const metadata: Metadata = {
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });
 
+export const revalidate = 86400;
+
 const getData = async () => {
-  const data = await prisma.works.findMany({
-    orderBy: {
-      order: "asc",
-    },
-    include: {
-      techStack: {
-        select: {
-          id: true,
-          name: true,
+  try {
+    const data = await prisma.works.findMany({
+      orderBy: {
+        order: "asc",
+      },
+      include: {
+        techStack: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        media: {
+          select: {
+            id: true,
+            url: true,
+            description: true,
+          },
+          orderBy: {
+            createdAt: "asc",
+          },
         },
       },
-      media: {
-        select: {
-          id: true,
-          url: true,
-          description: true,
-        },
-        orderBy: {
-          createdAt: "asc",
-        },
-      },
-    },
-  });
-  return data;
+    });
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 const Works = async () => {
   const works = await getData();
-
 
   return (
     <>
@@ -73,22 +79,25 @@ const Works = async () => {
             <CardContent className="p-4 flex items-center justify-center flex-1">
               {item.media.length > 0 && (
                 <CardCarousel
-                  carouselContentSyle={{ height: "400px", width: "100%" }}
+                  carouselContentSyle={{ maxHeight: "400px", width: "100%" }}
                   works={item}
+                  id={item.id}
                 />
               )}
             </CardContent>
             <CardHeader>
-              <CardTitle className="text-xl">
-                <Link href={{ pathname: `/works/${item.id}` }}>{item.name}</Link>
+              <CardTitle className="text-xl flex">
+                <Link className="w-full flex-1 max-md:mt-4" href={`/works/${item.id}`}>
+                  {item.name}
+                </Link>
               </CardTitle>
               <CardDescription>
                 <p className="text-lg text-justify py-4">{item.description}</p>
-                <div className="flex gap-2 flex-wrap">
+                <Link href={`/works/${item.id}`} className="flex gap-2 flex-wrap">
                   {item.techStack.map((tech) => (
                     <TechBadge tech={tech} key={tech.id} />
                   ))}
-                </div>
+                </Link>
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex justify-between">
@@ -102,6 +111,7 @@ const Works = async () => {
                       <CardCarousel
                         carouselContentSyle={{ height: "200px", width: "300px" }}
                         works={item}
+                        id={item.id}
                       />
                     </div>
                   ) : (

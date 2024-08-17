@@ -44,13 +44,29 @@ model Education {
 model ProfessionalWork {
   id             String       @id @default(cuid())
   companyName    String
-  role           String
-  duration       String
+  position       Position[]
   location       String
   description    String
   images         String[]
   PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
   personalInfoId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  duration       String       @default("")
+}
+
+model Position {
+  id                 String           @id @default(cuid())
+  name               String
+  description        String
+  skills             String[]
+  duration           String
+  order              Int
+  ProfessionalWork   ProfessionalWork @relation(fields: [professionalWorkId], references: [id])
+  professionalWorkId String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  techStack          TechStack[]
 }
 
 model Language {
@@ -103,7 +119,7 @@ model Visitor {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  ip        String
+  ip        String   @unique
   location  Json?
   visits    BigInt
   refresh   BigInt
@@ -121,8 +137,9 @@ model Media {
 }
 
 model TechStack {
-  id          Int     @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String?
   works       Works[]
+  Position    Position[]
 }

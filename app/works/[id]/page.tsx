@@ -12,84 +12,112 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import TextEllipsis from '@/components/custom/TextEllipsis';
 import TooltipWrapper from '@/components/custom/TooltipWrapper';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });
 
 type WithNavigation<T> = T & {
-  next: string | undefined;
-  prev: string | undefined;
+  next: {
+    id: string;
+    name: string;
+  } | null
+  prev: {
+    id: string;
+    name: string;
+  } | null
 };
 
 export const metadata: Metadata = {
   title: "Akash M - Works",
   description: "Portfolio of Akash M",
 };
+export const revalidate = 86400;
 
 const getWork = async (id: string) => {
-  const rawData = await prisma.works.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      developers: {
-        select: {
-          id: true,
-          name: true,
-          github: true,
-          about: true,
-          PersonalInfo: {
-            select: {
-              me: true,
+  try {
+    const rawData = await prisma.works.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        developers: {
+          select: {
+            id: true,
+            name: true,
+            github: true,
+            about: true,
+            images: true,
+            PersonalInfo: {
+              select: {
+                me: true,
+              }
             }
+          },
+          orderBy: {
+            createdAt: "asc",
           }
         },
-        orderBy: {
-          createdAt: "asc",
-        }
+        media: {
+          orderBy: {
+            createdAt: "asc",
+          }
+        },
+        techStack: true,
       },
-      media: true,
-      techStack: true,
-    },
-  });
-  if (!rawData) return [];
+    });
+    if (!rawData) return [];
 
-  const data: WithNavigation<typeof rawData> = {
-    ...rawData,
-    next: undefined,
-    prev: undefined,
+    const data: WithNavigation<typeof rawData> = {
+      ...rawData,
+      next: null,
+      prev: null,
+    }
+
+    const next = await prisma.works.findFirst({
+      where: {
+        order: {
+          gt: rawData.order,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+      orderBy: {
+        order: "asc",
+      }
+    });
+
+    data.next = next;
+    const prev = await prisma.works.findFirst({
+      where: {
+        order: {
+          lt: rawData.order,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+      orderBy: {
+        order: "desc",
+      }
+    });
+    data.prev = prev;
+    return [data];
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-
-  const next = await prisma.works.findFirst({
-    where: {
-      order: {
-        gt: rawData.order,
-      },
-    },
-    select: {
-      id: true,
-    },
-    orderBy: {
-      order: "asc",
-    }
-  });
-
-  data.next = next?.id;
-  const prev = await prisma.works.findFirst({
-    where: {
-      order: {
-        lt: rawData.order,
-      },
-    },
-    select: {
-      id: true,
-    },
-    orderBy: {
-      order: "desc",
-    }
-  });
-  data.prev = prev?.id;
-  return [data];
 };
+
+function getInitialsFromGitHub(githubUrl: string) {
+  const username = githubUrl.split("/").at(-1);
+  if (!username) return '';
+  const words = username.split(/[-_.]/);
+  const initials = words[0][0] + (words[1] ? words[1][0] : '');
+  return initials.toUpperCase();
+}
 
 async function WorkPage({ params }: { params: { id: string } }) {
   const data = await getWork(params.id);
@@ -109,13 +137,12 @@ async function WorkPage({ params }: { params: { id: string } }) {
           </div>
           <Separator orientation="horizontal" className="my-10" />
           <div className="flex gap-8 max-md:flex-col">
-            <div className="flex-1 flex gap-4 flex-col">
+            <div className="flex-1 flex gap-16 flex-col">
               <div className="flex flex-col gap-6">
-                <h2 className="text-2xl">Description</h2>
                 <p>{item.description}</p>
               </div>
               <div className="flex flex-col gap-4">
-                <h2 className="text-2xl">Tech Stack</h2>
+                <h2 className="text-2xl uppercase max-md:capitalize">Tech Stack</h2>
                 <div className="flex gap-2 flex-wrap">
                   {item.techStack.map((tech) => (
                     <TechBadge key={tech.id} tech={tech} />
@@ -138,7 +165,7 @@ async function WorkPage({ params }: { params: { id: string } }) {
               </div>)}
               <div className="flex flex-col gap-2">
                 <div className="flex items-end gap-1">
-                  <h2 className="text-xl uppercase max-md:capitalize">Developer</h2><span className="text-xl">(s)</span>
+                  <h2 className="text-xl uppercase max-md:capitalize">Developer</h2><span className="text-xl uppercase max-md:lowercase">(s)</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {item.developers.map((developer) => (
@@ -149,7 +176,10 @@ async function WorkPage({ params }: { params: { id: string } }) {
                       <HoverCardContent>
                         <div className="flex flex-col gap-2">
                           <div className="flex gap-3 items-center">
-                            <GitHubLogoIcon width={35} height={35} />
+                            {developer.images.length > 0 ? (<Avatar>
+                              <AvatarImage src={developer.images.pop()} alt={getInitialsFromGitHub(developer.github)} />
+                              <AvatarFallback>{getInitialsFromGitHub(developer.github)}</AvatarFallback>
+                            </Avatar>) : (<GitHubLogoIcon width={35} height={35} />)}
                             <a className="underline" href={item.github} target="_blank">
                               @{developer.github.split("/").at(-1)}
                             </a>
@@ -166,14 +196,18 @@ async function WorkPage({ params }: { params: { id: string } }) {
             </div>
           </div>
           <div className="flex flex-col gap-4 py-8">
-            <h2 className="text-2xl">Images</h2>
+            <h2 className="text-2xl uppercase max-md:capitalize">Images</h2>
             <div className="flex flex-1 justify-center mx-20 my-10 max-md:mx-2 max-md:my-8">
               <WorkCarousel data={item.media} />
             </div>
           </div>
           <div className="flex justify-between pb-6">
-            <Navigators id={item.prev} type='prev' handleNavigation={handleNavigation} />
-            <Navigators id={item.next} type='next' handleNavigation={handleNavigation} />
+            <TooltipWrapper content={item.prev?.name ?? 'Previous action nat available'} className="w-fit">
+              <Navigators id={item.prev?.id} type='prev' handleNavigation={handleNavigation} />
+            </TooltipWrapper>
+            <TooltipWrapper content={item.next?.name ?? 'Next action nat available'} className="w-fit">
+              <Navigators id={item.next?.id} type='next' handleNavigation={handleNavigation} />
+            </TooltipWrapper>
           </div>
         </div>
       ))}
