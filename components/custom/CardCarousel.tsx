@@ -23,11 +23,13 @@ type CardCarouselData = {
 const CardCarousel = ({
   works,
   carouselContentSyle,
-  id
+  id,
+  lcp
 }: {
   works: CardCarouselData;
   carouselContentSyle: React.CSSProperties;
   id: string;
+  lcp: boolean;
 }) => {
   return (
     <Carousel opts={{ loop: true }} className="flex-1">
@@ -41,7 +43,7 @@ const CardCarousel = ({
               <Image
                 src={media.url}
                 width={1080}
-                loading="lazy"
+                loading={lcp ? "eager" : "lazy"}
                 height={600}
                 quality={100}
                 alt={media.description || ""}

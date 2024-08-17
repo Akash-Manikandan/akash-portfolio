@@ -74,7 +74,7 @@ const Works = async () => {
         <Separator orientation="horizontal" className="my-6" />
       </div>
       <div className="flex flex-col gap-2 mx-40 max-md:mx-10 max-sm:mx-2 max-lg:mx-12">
-        {works.map((item) => (
+        {works.map((item, index) => (
           <Card key={item.id} className="m-6">
             <CardContent className="p-4 flex items-center justify-center flex-1">
               {item.media.length > 0 && (
@@ -82,6 +82,7 @@ const Works = async () => {
                   carouselContentSyle={{ maxHeight: "400px", width: "100%" }}
                   works={item}
                   id={item.id}
+                  lcp={index === 0}
                 />
               )}
             </CardContent>
@@ -112,6 +113,7 @@ const Works = async () => {
                         carouselContentSyle={{ height: "200px", width: "300px" }}
                         works={item}
                         id={item.id}
+                        lcp={index === 0}
                       />
                     </div>
                   ) : (
