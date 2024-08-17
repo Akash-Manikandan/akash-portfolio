@@ -37,7 +37,7 @@ const CardCarousel = ({
             key={media.id}
             className="flex items-center w-full h-auto pt-2"
           >
-            <Link href={`/works/${id}`} className="h-full w-full">
+            <Link href={`/works/${id}`} aria-label={id} className="h-full w-full">
               <Image
                 src={media.url}
                 width={1080}
