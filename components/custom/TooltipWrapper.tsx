@@ -1,5 +1,5 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 const TooltipWrapper = ({ children, content, className, asChild = false }: Readonly<{
     children: React.ReactNode;
@@ -15,7 +15,7 @@ const TooltipWrapper = ({ children, content, className, asChild = false }: Reado
                     {children}
                 </TooltipTrigger>
                 <TooltipContent className={cn("w-80", className)}>
-                    <p className='text-justify'>{content}</p>
+                    <p className="text-justify">{content}</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

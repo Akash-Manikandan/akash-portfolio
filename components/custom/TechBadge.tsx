@@ -11,7 +11,7 @@ const TechBadge = ({ tech }: { tech: TechStack }) => {
             className="mt-2"
             key={tech.id}
         >
-            {tech.name}
+            <p className="font-normal">{tech.name}</p>
         </Badge>
     );
 }

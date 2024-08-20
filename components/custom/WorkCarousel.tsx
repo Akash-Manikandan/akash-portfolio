@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { useRef } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay"
@@ -25,10 +25,11 @@ const WorkCarousel = ({ data }: { data: WorkCarouselData }) => {
             plugins={[plugin.current]}
         >
             <CarouselContent >
-                {data.map((media) => (
+                {data.map((media, index) => (
                     <CarouselItem key={media.id} className="h-[600px] max-md:h-80">
                         <div className="flex items-center pt-2 justify-center w-full h-full p-8 max-md:p-2">
                             <Image
+                                priority={index === 0}
                                 src={media.url}
                                 width={1080}
                                 loading="eager"

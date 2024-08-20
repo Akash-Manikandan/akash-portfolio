@@ -21,7 +21,7 @@ import CardCarousel from "@/components/custom/CardCarousel";
 import TechBadge from "@/components/custom/TechBadge";
 import { Metadata } from "next";
 import { Lora } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { cn, getLastUrlSegment } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
@@ -102,31 +102,9 @@ const Works = async () => {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex justify-between">
-              <HoverCard>
-                <HoverCardTrigger target="_blank" href={item.deployment}>
-                  <Link2Icon width={20} height={20} />
-                </HoverCardTrigger>
-                <HoverCardContent className="flex-1">
-                  {item.media.length > 0 ? (
-                    <div>
-                      <CardCarousel
-                        carouselContentSyle={{ height: "200px", width: "300px" }}
-                        works={item}
-                        id={item.id}
-                        lcp={index === 0}
-                      />
-                    </div>
-                  ) : (
-                    <a
-                      href={item.deployment}
-                      className="hover:underline"
-                      target="_blank"
-                    >
-                      {item.deployment}
-                    </a>
-                  )}
-                </HoverCardContent>
-              </HoverCard>
+              <a target="_blank" href={item.deployment}>
+                <Link2Icon width={20} height={20} />
+              </a>
               <HoverCard>
                 <HoverCardTrigger target="_blank" href={item.github}>
                   <GitHubLogoIcon width={30} height={30} />
@@ -136,7 +114,7 @@ const Works = async () => {
                     <div className="flex gap-3 items-center">
                       <GitHubLogoIcon width={35} height={35} />
                       <a className="underline" href={item.github} target="_blank">
-                        @{item.github.split("/").at(-1)}
+                        @{getLastUrlSegment(item.github)}
                       </a>
                     </div>
                     <TextEllipsis maxLine="4" text={item.tagLine} />

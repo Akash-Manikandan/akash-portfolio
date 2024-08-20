@@ -1,18 +1,18 @@
-import { Metadata } from 'next';
-import { redirect } from 'next/navigation'
+import { Metadata } from "next";
+import { redirect } from "next/navigation"
 import { Lora } from "next/font/google";
 import prisma from "@/lib/database";
-import { cn } from "@/lib/utils";
+import { cn, getInitialsFromGitHub, getLastUrlSegment } from "@/lib/utils";
 import TechBadge from "@/components/custom/TechBadge";
 import WorkCarousel from "@/components/custom/WorkCarousel";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import Navigators from './Navigators';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import TextEllipsis from '@/components/custom/TextEllipsis';
-import TooltipWrapper from '@/components/custom/TooltipWrapper';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Navigators from "./Navigators";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import TextEllipsis from "@/components/custom/TextEllipsis";
+import TooltipWrapper from "@/components/custom/TooltipWrapper";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -111,19 +111,13 @@ const getWork = async (id: string) => {
   }
 };
 
-function getInitialsFromGitHub(githubUrl: string) {
-  const username = githubUrl.split("/").at(-1);
-  if (!username) return '';
-  const words = username.split(/[-_.]/);
-  const initials = words[0][0] + (words[1] ? words[1][0] : '');
-  return initials.toUpperCase();
-}
+
 
 async function WorkPage({ params }: { params: { id: string } }) {
   const data = await getWork(params.id);
 
   const handleNavigation = async (id: string | undefined) => {
-    'use server';
+    "use server";
     if (id) redirect(`/works/${id}`);
   }
 
@@ -182,7 +176,9 @@ async function WorkPage({ params }: { params: { id: string } }) {
                   {item.developers.map((developer) => (
                     <HoverCard key={developer.id}>
                       <HoverCardTrigger target="_blank" href={developer.github}>
-                        <Badge variant={developer.PersonalInfo?.me ? "default" : "outline"} className="mt-2">{developer.name}</Badge>
+                        <Badge variant={developer.PersonalInfo?.me ? "default" : "outline"} className="mt-2">
+                          <p className="font-normal">{developer.name}</p>
+                        </Badge>
                       </HoverCardTrigger>
                       <HoverCardContent>
                         <div className="flex flex-col gap-2">
@@ -192,7 +188,7 @@ async function WorkPage({ params }: { params: { id: string } }) {
                               <AvatarFallback>{getInitialsFromGitHub(developer.github)}</AvatarFallback>
                             </Avatar>) : (<GitHubLogoIcon width={35} height={35} />)}
                             <a className="underline" href={item.github} target="_blank">
-                              @{developer.github.split("/").at(-1)}
+                              @{getLastUrlSegment(developer.github)}
                             </a>
                           </div>
                           <TooltipWrapper content={developer.about}>
@@ -210,7 +206,7 @@ async function WorkPage({ params }: { params: { id: string } }) {
                   <GitHubLogoIcon width={35} height={35} />
                   <TooltipWrapper content={`${item.name}`} className="w-fit">
                     <a className="underline" href={item.github} target="_blank">
-                      @{item.github.split("/").at(-1)}
+                      @{getLastUrlSegment(item.github)}
                     </a>
                   </TooltipWrapper>
                 </div>
@@ -224,14 +220,14 @@ async function WorkPage({ params }: { params: { id: string } }) {
             </div>
           </div>
           <div className="flex justify-between pb-6">
-            <TooltipWrapper asChild={true} content={item.prev?.name ?? 'Previous action nat available'} className="w-fit">
+            <TooltipWrapper asChild={true} content={item.prev?.name ?? "Previous action nat available"} className="w-fit">
               <div>
-                <Navigators id={item.prev?.id} type='prev' handleNavigation={handleNavigation} />
+                <Navigators id={item.prev?.id} type="prev" handleNavigation={handleNavigation} />
               </div>
             </TooltipWrapper>
-            <TooltipWrapper asChild={true} content={item.next?.name ?? 'Next action nat available'} className="w-fit">
+            <TooltipWrapper asChild={true} content={item.next?.name ?? "Next action nat available"} className="w-fit">
               <div>
-                <Navigators id={item.next?.id} type='next' handleNavigation={handleNavigation} />
+                <Navigators id={item.next?.id} type="next" handleNavigation={handleNavigation} />
               </div>
             </TooltipWrapper>
           </div>

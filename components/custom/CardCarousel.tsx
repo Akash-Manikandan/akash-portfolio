@@ -34,7 +34,7 @@ const CardCarousel = ({
   return (
     <Carousel opts={{ loop: true }} className="flex-1">
       <CarouselContent style={carouselContentSyle} className="max-md:flex">
-        {works.media.map((media) => (
+        {works.media.map((media, index) => (
           <CarouselItem
             key={media.id}
             className="flex items-center w-full h-auto pt-2"
@@ -44,6 +44,7 @@ const CardCarousel = ({
                 src={media.url}
                 width={1080}
                 loading={lcp ? "eager" : "lazy"}
+                priority={lcp && index === 0}
                 height={600}
                 quality={100}
                 alt={media.description || ""}

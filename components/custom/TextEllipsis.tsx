@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import LinesEllipsis from "react-lines-ellipsis";
 
 function TextEllipsis({ text, maxLine }: { text: string; maxLine: string }) {

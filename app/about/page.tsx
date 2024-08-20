@@ -62,14 +62,14 @@ const getData = async () => {
                 }
               },
               orderBy: {
-                order: 'desc'
+                order: "desc"
               }
             },
             description: true,
             location: true,
           },
           orderBy: {
-            createdAt: 'desc'
+            createdAt: "desc"
           }
         }
       }

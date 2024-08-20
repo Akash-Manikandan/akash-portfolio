@@ -1,4 +1,4 @@
-'use server'
+"use server"
 
 import prisma from "@/lib/database";
 
@@ -11,7 +11,7 @@ export async function addOrUpdateVisitor(ip: string, location: any) {
     });
 
     await prisma.visitor.upsert({
-        where: { id: existingVisitor?.id || '' },
+        where: { id: existingVisitor?.id || "" },
         update: {
             visits: { increment: 1 },
             refresh: { increment: 1 }
@@ -27,13 +27,13 @@ export async function addOrUpdateVisitor(ip: string, location: any) {
 
 export async function getVisitorInfo() {
     try {
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipResponse = await fetch("https://api.ipify.org?format=json");
         const { ip } = await ipResponse.json();
         const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
         const location = await locationResponse.json();
         return { ip, location };
     } catch (error) {
-        console.error('Error getting visitor info:', error);
+        console.error("Error getting visitor info:", error);
         return { ip: null, location: null };
     }
 }

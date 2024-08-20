@@ -37,7 +37,7 @@ function getUniqueTechStack(professionalCard: ProfessionalCardProps) {
     return Array.from(techStackSet);
 }
 
-const ProfessionalCard = ({ experience, className = '' }: { experience: ProfessionalCardProps, className: string }) => {
+const ProfessionalCard = ({ experience, className = "" }: { experience: ProfessionalCardProps, className: string }) => {
     const uniqueTechStack = getUniqueTechStack(experience);
 
     return (

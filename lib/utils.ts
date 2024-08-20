@@ -27,3 +27,15 @@ export function linkItems<T extends { id: string }>(items: T[]): WithCircularRef
   return linkedItems;
 }
 
+export function getLastUrlSegment(url: string): string {
+  const segments = url.replace(/\/+$/, "").split("/");
+  return segments.at(-1) || "";
+}
+
+export function getInitialsFromGitHub(githubUrl: string) {
+  const username = getLastUrlSegment(githubUrl);
+  if (!username) return "";
+  const words = username.split(/[-_.]/);
+  const initials = words[0][0] + (words[1] ? words[1][0] : "");
+  return initials.toUpperCase();
+}
