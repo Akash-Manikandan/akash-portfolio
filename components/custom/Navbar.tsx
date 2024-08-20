@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import Link from "next/link";
 
 import {
@@ -24,16 +24,16 @@ import { Alex_Brush } from "next/font/google";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { addOrUpdateVisitor, getVisitorInfo } from "@/app/visitorCount";
+// import { addOrUpdateVisitor, getVisitorInfo } from "@/app/visitorCount";
 
 const alexbrush = Alex_Brush({ subsets: ["latin"], weight: ["400"] });
 
-const getVisitorCount = async () => {
-  const { ip, location } = await getVisitorInfo();
-  if (ip && location) {
-    addOrUpdateVisitor(ip, location);
-  }
-}
+// const getVisitorCount = async () => {
+//   const { ip, location } = await getVisitorInfo();
+//   if (ip && location) {
+//     addOrUpdateVisitor(ip, location);
+//   }
+// }
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -61,9 +61,9 @@ const Navbar = () => {
     },
   ];
 
-  useEffect(() => {
-    getVisitorCount()
-  }, [])
+  // useEffect(() => {
+  //   getVisitorCount()
+  // }, [])
 
   return (
     <header className="z-20 fixed top-0 w-full drop-shadow-sm shadow-sm px-8 py-4 items-center  backdrop-filter backdrop-blur-[7px] dark:shadow-[10px_10px_10px_rgba(30,30,30,0.1)]  border-l-[rgba(0,0,0,0.3)] border-t-[rgba(0,0,0,0.8)] border-t-[1px] border-l-[1px] p-4 flex justify-between">

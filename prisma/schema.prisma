@@ -80,21 +80,22 @@ model Language {
 }
 
 model Works {
-  id          String      @id @default(cuid())
-  name        String      @unique
-  deployment  String      @unique
-  github      String      @unique
-  description String
-  tagLine     String      @default("")
-  media       Media[]
-  developers  Developer[]
-  timeLine    String?
-  role        String      @default("Developer")
-  company     String      @default("Personal")
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  order       Int         @default(0)
-  techStack   TechStack[]
+  id           String      @id @default(cuid())
+  name         String      @unique
+  deployment   String      @unique
+  github       String      @unique
+  description  String[]
+  contribution String[]
+  tagLine      String      @default("")
+  media        Media[]
+  developers   Developer[]
+  timeLine     String?
+  role         String      @default("Developer")
+  company      String      @default("Personal")
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  order        Int         @default(0)
+  techStack    TechStack[]
 }
 
 model Developer {

@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/custom/Navbar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
-const fredoka = Fredoka({ subsets: ["latin"], weight: ["400"] });
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
   title: "Akash M",

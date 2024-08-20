@@ -31,7 +31,7 @@ const WorkCarousel = ({ data }: { data: WorkCarouselData }) => {
                             <Image
                                 src={media.url}
                                 width={1080}
-                                loading="lazy"
+                                loading="eager"
                                 height={600}
                                 quality={100}
                                 alt={media.description || ""}

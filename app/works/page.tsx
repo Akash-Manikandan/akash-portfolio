@@ -88,12 +88,12 @@ const Works = async () => {
             </CardContent>
             <CardHeader>
               <CardTitle className="text-xl flex">
-                <Link className="w-full flex-1 max-md:mt-4" href={`/works/${item.id}`}>
+                <Link className="w-full flex-1 font-medium max-md:mt-4" href={`/works/${item.id}`}>
                   {item.name}
                 </Link>
               </CardTitle>
               <CardDescription>
-                <p className="text-lg text-justify py-4">{item.description}</p>
+                <p className="text-lg text-justify py-4">{item.tagLine}</p>
                 <Link href={`/works/${item.id}`} className="flex gap-2 flex-wrap">
                   {item.techStack.map((tech) => (
                     <TechBadge tech={tech} key={tech.id} />
@@ -139,7 +139,7 @@ const Works = async () => {
                         @{item.github.split("/").at(-1)}
                       </a>
                     </div>
-                    <TextEllipsis maxLine="4" text={item.description} />
+                    <TextEllipsis maxLine="4" text={item.tagLine} />
                   </div>
                 </HoverCardContent>
               </HoverCard>

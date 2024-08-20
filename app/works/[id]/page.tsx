@@ -138,11 +138,22 @@ async function WorkPage({ params }: { params: { id: string } }) {
           <Separator orientation="horizontal" className="my-10" />
           <div className="flex gap-8 max-md:flex-col">
             <div className="flex-1 flex gap-16 flex-col">
-              <div className="flex flex-col gap-6">
-                <p>{item.description}</p>
-              </div>
               <div className="flex flex-col gap-4">
-                <h2 className="text-2xl uppercase max-md:capitalize">Tech Stack</h2>
+                {item.description.map((description, index) => (
+                  <p key={index}>{description}</p>
+                ))}
+              </div>
+              {(item.contribution.length > 0) &&
+                (<div className="flex flex-col gap-6">
+                  <h2 className="text-xl font-medium uppercase max-md:capitalize">My Contribution</h2>
+                  <div className="flex flex-col gap-4">
+                    {item.contribution.map((contribution, index) => (
+                      <p key={index}>{contribution}</p>
+                    ))}
+                  </div>
+                </div>)}
+              <div className="flex flex-col gap-4">
+                <h2 className="text-2xl font-medium uppercase max-md:capitalize">Tech Stack</h2>
                 <div className="flex gap-2 flex-wrap">
                   {item.techStack.map((tech) => (
                     <TechBadge key={tech.id} tech={tech} />
@@ -152,20 +163,20 @@ async function WorkPage({ params }: { params: { id: string } }) {
             </div>
             <div className="w-[340px] h-fit max-md:w-auto flex flex-col gap-12">
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl uppercase max-md:capitalize">Role</h2>
+                <h2 className="text-xl font-medium uppercase max-md:capitalize">Role</h2>
                 <p>{item.role}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <h2 className="text-xl uppercase max-md:capitalize">Company</h2>
+                <h2 className="text-xl font-medium uppercase max-md:capitalize">Company</h2>
                 <p>{item.company}</p>
               </div>
               {item.timeLine && (<div className="flex flex-col gap-2">
-                <h2 className="text-xl uppercase max-md:capitalize">Timeline</h2>
+                <h2 className="text-xl font-medium uppercase max-md:capitalize">Timeline</h2>
                 <p>{item.timeLine}</p>
               </div>)}
               <div className="flex flex-col gap-2">
                 <div className="flex items-end gap-1">
-                  <h2 className="text-xl uppercase max-md:capitalize">Developer</h2><span className="text-xl uppercase max-md:lowercase">(s)</span>
+                  <h2 className="text-xl font-medium uppercase max-md:capitalize">Developer</h2><span className="text-xl uppercase max-md:lowercase">(s)</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {item.developers.map((developer) => (
@@ -193,20 +204,35 @@ async function WorkPage({ params }: { params: { id: string } }) {
                   ))}
                 </div>
               </div>
+              {item.github && (<div className="flex flex-col gap-4">
+                <h2 className="text-xl font-medium uppercase max-md:capitalize">GitHub</h2>
+                <div className="flex gap-3 items-center">
+                  <GitHubLogoIcon width={35} height={35} />
+                  <TooltipWrapper content={`${item.name}`} className="w-fit">
+                    <a className="underline" href={item.github} target="_blank">
+                      @{item.github.split("/").at(-1)}
+                    </a>
+                  </TooltipWrapper>
+                </div>
+              </div>)}
             </div>
           </div>
           <div className="flex flex-col gap-4 py-8">
-            <h2 className="text-2xl uppercase max-md:capitalize">Images</h2>
+            <h2 className="text-2xl font-medium uppercase max-md:capitalize">Images</h2>
             <div className="flex flex-1 justify-center mx-20 my-10 max-md:mx-2 max-md:my-8">
               <WorkCarousel data={item.media} />
             </div>
           </div>
           <div className="flex justify-between pb-6">
-            <TooltipWrapper content={item.prev?.name ?? 'Previous action nat available'} className="w-fit">
-              <Navigators id={item.prev?.id} type='prev' handleNavigation={handleNavigation} />
+            <TooltipWrapper asChild={true} content={item.prev?.name ?? 'Previous action nat available'} className="w-fit">
+              <div>
+                <Navigators id={item.prev?.id} type='prev' handleNavigation={handleNavigation} />
+              </div>
             </TooltipWrapper>
-            <TooltipWrapper content={item.next?.name ?? 'Next action nat available'} className="w-fit">
-              <Navigators id={item.next?.id} type='next' handleNavigation={handleNavigation} />
+            <TooltipWrapper asChild={true} content={item.next?.name ?? 'Next action nat available'} className="w-fit">
+              <div>
+                <Navigators id={item.next?.id} type='next' handleNavigation={handleNavigation} />
+              </div>
             </TooltipWrapper>
           </div>
         </div>
