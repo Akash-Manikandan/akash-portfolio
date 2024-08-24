@@ -1,4 +1,4 @@
-import { compileMDX } from 'next-mdx-remote/rsc'
+import { compileMDX } from "next-mdx-remote/rsc"
 
 interface MDXContentProps {
     source: string;
@@ -10,5 +10,5 @@ export default async function Markdown({ source }: MDXContentProps) {
         options: { parseFrontmatter: true },
     })
 
-    return <div className='w-3/4 max-sm:w-auto'>{content}</div>;
+    return <div className="w-3/4 max-sm:w-auto">{content}</div>;
 }

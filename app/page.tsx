@@ -32,12 +32,12 @@ const getData = async () => {
 
 export default async function Home() {
   const personalInfo = await getData();
-  const markdown = personalInfo?.about ?? '';
+  const markdown = personalInfo?.about ?? "";
   const MarkDownComponent: JSX.Element = await Markdown({ source: markdown });
   return (
     <>
       <section className="h-[90vh] mx-8 flex flex-col justify-center">
-        <h1 className={cn(nunito.className, "text-6xl max-sm:text-4xl")}>Hi, I'm <span className={cn(alexBrush.className, 'underline')}>Akash</span></h1>
+        <h1 className={cn(nunito.className, "text-6xl max-sm:text-4xl")}>Hi, I&apos;m <span className={cn(alexBrush.className, "underline")}>Akash</span></h1>
         {personalInfo && (
           <div className="my-6 text-4xl max-md:text-2xl leading-relaxed">
             {MarkDownComponent}
