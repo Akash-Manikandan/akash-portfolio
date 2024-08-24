@@ -37,7 +37,7 @@ const WorkCarousel = ({ data }: { data: WorkCarouselData }) => {
                                 quality={100}
                                 alt={media.description || ""}
                                 key={media.id}
-                                className="object-contain p-4 w-full h-full drop-shadow-xl"
+                                className="object-contain w-full h-full drop-shadow-xl"
                             />
                         </div>
                     </CarouselItem>

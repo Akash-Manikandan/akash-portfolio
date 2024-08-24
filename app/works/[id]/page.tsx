@@ -66,14 +66,12 @@ const getWork = async (id: string) => {
       },
     });
     if (!rawData) return [];
-
     const data: WithNavigation<typeof rawData> = {
       ...rawData,
       next: null,
       prev: null,
     }
-
-    const next = await prisma.works.findFirst({
+    const next = prisma.works.findFirst({
       where: {
         order: {
           gt: rawData.order,
@@ -87,9 +85,7 @@ const getWork = async (id: string) => {
         order: "asc",
       }
     });
-
-    data.next = next;
-    const prev = await prisma.works.findFirst({
+    const prev = prisma.works.findFirst({
       where: {
         order: {
           lt: rawData.order,
@@ -103,7 +99,10 @@ const getWork = async (id: string) => {
         order: "desc",
       }
     });
-    data.prev = prev;
+    await Promise.all([next, prev]).then(([next, prev]) => {
+      data.next = next;
+      data.prev = prev;
+    });
     return [data];
   } catch (error) {
     console.error(error);

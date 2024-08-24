@@ -156,3 +156,47 @@
     @apply bg-background text-foreground;
   }
 }
+
+.hover-underline-animation::after {
+  @apply dark:bg-white bg-black content-[''] absolute w-full scale-x-0 h-[2px] bottom-0 left-0 origin-left transition-all ease-in-out;
+}
+
+.hover-underline-animation:hover::after {
+  @apply scale-x-100;
+}
+
+.highlight,
+.highlight2 {
+  background-size: 200% 100%;
+  display: inline-block;
+  background-position: 100% 0;
+  animation: highlightAnimation 3s forwards;
+  @apply hover-underline-animation
+}
+
+.highlight {
+  background-image: linear-gradient(90deg, #a8e3ed 50%, transparent 50%);
+}
+
+.dark .highlight,
+.dark .highlight2 {
+  color: black;
+}
+
+.highlight2 {
+  background-image: linear-gradient(90deg, #fbdcdc 50%, transparent 50%);
+}
+
+@keyframes highlightAnimation {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+.hover-underline-animation {
+  @apply inline-block relative;
+}

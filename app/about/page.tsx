@@ -90,29 +90,29 @@ const About = async () => {
         <div className="py-12 px-8" key={data.id}>
           {data.developer && (
             <>
-              <div className="flex flex-col gap-3 mx-10 mb-10 max-sm:m-2">
+              <section className="flex flex-col gap-3 mx-10 mb-10 max-sm:m-2 text-justify">
                 {data.developer.specifics.map((specific, index) => (
                   <p key={index} className="last:text-xl last:text-center last:pt-6">{specific}</p>
                 ))}
-              </div>
+              </section>
               <Separator orientation="horizontal" className="my-12" />
             </>
           )}
           <h2 className={cn(lora.className, "font-bold text-3xl mb-10 ml-3")}>Education</h2>
-          <div className="grid grid-cols-2 gap-6 items-stretch max-sm:flex max-sm:flex-col">
+          <section className="grid grid-cols-2 gap-6 items-stretch max-sm:flex max-sm:flex-col">
             {data.education.map((education, index) => (
               <EducationCard key={education.id} className={(index === 0 && data.education.length) ? "col-span-2" : ""} education={education} />
             ))}
-          </div>
+          </section>
           <Separator orientation="horizontal" className="my-12" />
           <h2 className={cn(lora.className, "font-bold text-3xl mb-10 ml-3")}>Professional Experience</h2>
-          <div className="grid grid-cols-2 gap-6 items-stretch">
+          <section className="grid grid-cols-2 gap-6 items-stretch">
             {data.professional.map((experience) => (
               <ProfessionalCard key={experience.id} className={"col-span-2"} experience={experience} />
             ))}
-          </div>
+          </section>
           <Separator orientation="horizontal" className="my-12" />
-          <div className="flex w-full items-center justify-center my-5 flex-col gap-5">
+          <section className="flex w-full items-center justify-center my-5 flex-col gap-5">
             <h2 className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>
               My Resume
             </h2>
@@ -120,13 +120,13 @@ const About = async () => {
               className="w-[560px] h-[780px] max-sm:w-[300px] max-sm:h-[400px] framerr"
               frameBorder="0"
               allowFullScreen={true}
-              loading="eager"
+              loading="lazy"
               title="Resume"
               src={data.resume}
             />
-          </div>
+          </section>
           <Separator orientation="horizontal" className="my-12" />
-          <div className="flex flex-col justify-center items-center gap-3">
+          <section className="flex flex-col justify-center items-center gap-3">
             <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>Favourite Artist</div>
             <div className="w-[500px] max-md:w-80">
               <iframe
@@ -140,7 +140,7 @@ const About = async () => {
                 loading="lazy"
               />
             </div>
-          </div>
+          </section>
         </div>
       ))}
     </>

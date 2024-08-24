@@ -94,7 +94,7 @@ const Navbar = () => {
                     active={pathname.includes(item.title.toLowerCase())}
                     className={cn(navigationMenuTriggerStyle(), pathname.includes(item.title.toLowerCase()) ? "" : "bg-transparent")}
                   >
-                    <p className="text-lg">{item.title}</p>
+                    <p className="text-lg font-medium">{item.title}</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
