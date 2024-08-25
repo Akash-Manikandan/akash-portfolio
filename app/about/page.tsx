@@ -128,7 +128,7 @@ const About = async () => {
           <Separator orientation="horizontal" className="my-12" />
           <section className="flex flex-col justify-center items-center gap-3">
             <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>Favourite Artist</div>
-            <div className="w-[500px] max-md:w-80">
+            <div className="w-[500px] max-md:w-full">
               <iframe
                 className="rounded-[12px]"
                 src="https://open.spotify.com/embed/artist/06HL4z0CvFAxyc27GXpf02?utm_source=generator&theme=0"

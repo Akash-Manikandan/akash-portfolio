@@ -6,7 +6,7 @@ const LogoMarkdown = ({ markdown, content }: { markdown: string, content: string
     const dataUrl = `data:image/svg+xml;base64,${base64Svg}`;
     return (
         <TooltipWrapper content={content}>
-            <Image src={dataUrl} alt="logo" width={64} height={64} />
+            <Image priority={false} loading="lazy" src={dataUrl} alt="logo" width={64} height={64} />
         </TooltipWrapper>
     )
 }
