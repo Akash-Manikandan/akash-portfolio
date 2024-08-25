@@ -200,3 +200,8 @@
 .hover-underline-animation {
   @apply inline-block relative;
 }
+
+.write-btt {
+  writing-mode: vertical-lr;
+  transform: scale(-1);
+}

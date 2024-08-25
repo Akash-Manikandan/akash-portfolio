@@ -87,7 +87,7 @@ const About = async () => {
   return (
     <>
       {about.map((data) => (
-        <div className="py-12 px-8" key={data.id}>
+        <div className="py-12 px-8 max-md:px-4" key={data.id}>
           {data.developer && (
             <>
               <section className="flex flex-col gap-3 mx-10 mb-10 max-sm:m-2 text-justify">

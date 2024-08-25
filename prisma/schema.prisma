@@ -75,6 +75,7 @@ model Language {
   percent        Int
   lang           String
   images         String[]
+  category       String
   PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
   personalInfoId String
 }

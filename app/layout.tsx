@@ -3,7 +3,7 @@ import { Fredoka } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/custom/Navbar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import CustomCursor from "@/components/custom/cursor/CustomCursor";
+// import CustomCursor from "@/components/custom/cursor/CustomCursor";
 
 const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
@@ -26,8 +26,9 @@ export default function RootLayout({
           enableSystem
         >
           <Navbar />
-          <CustomCursor />
+          {/* <CustomCursor /> */}
           {children}
+          <p className="text-center pt-3 mb-2">Akash M © 2024</p>
         </ThemeProvider>
       </body>
     </html>
