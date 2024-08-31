@@ -75,9 +75,17 @@ model Language {
   percent        Int
   lang           String
   images         String[]
-  category       String
   PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
   personalInfoId String
+  category       Category     @relation(fields: [categoryId], references: [id])
+  categoryId     String
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  language    Language[]
+  description String     @default("")
 }
 
 model Works {

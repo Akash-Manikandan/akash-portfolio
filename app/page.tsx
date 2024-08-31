@@ -23,38 +23,49 @@ const getData = async () => {
         id: true,
         about: true,
         goals: true,
+        languageStatus: {
+          select: {
+            category: {
+              select: {
+                name: true,
+                description: true,
+                id: true,
+              }
+            },
+            lang: true,
+            id: true,
+            images: true,
+            name: true,
+
+          },
+        }
       },
     });
-    if (!data) return null;
-    const languageStatus = await prisma.language.groupBy({
-      by: ["category"],
-      orderBy: {
-        _count: {
-          id: "asc",
-        },
-      }
-    });
-    const newlangStatus = await Promise.all(languageStatus.map(async (category) => {
-      const categoryData = await prisma.language.findMany({
-        where: {
-          personalInfoId: data.id,
-          category: category.category,
-        },
-        select: {
-          id: true,
-          lang: true,
-          name: true,
-          images: true,
-        },
-        orderBy: {
-          percent: "desc",
+    if (data) {
+      const groupedLanguageStatus = data.languageStatus.reduce((acc, item) => {
+        const categoryName = item.category.name;
+        if (!acc[categoryName]) {
+          acc[categoryName] = {
+            category: item.category,
+            data: []
+          };
         }
-      });
-      return { category: category.category, data: categoryData };
-    }))
-    const newData: typeof data & { languageStatus: typeof newlangStatus } = { ...data, languageStatus: newlangStatus };
+        acc[categoryName].data.push({
+          id: item.id,
+          name: item.name,
+          lang: item.lang,
+          images: item.images
+        });
+        return acc;
+      }, {} as Record<string, { category: typeof data.languageStatus[0]["category"], data: Array<{ id: string, name: string, lang: string, images: string[] }> }>);
 
-    return newData ? newData : null;
+      const sortedLanguageStatus = Object.values(groupedLanguageStatus)
+        .sort((a, b) => b.data.length - a.data.length);
+
+      return { ...data, languageStatus: sortedLanguageStatus };
+    }
+
+    return null;
   }
   catch (error) {
     console.error(error);
@@ -66,7 +77,6 @@ export default async function Home() {
   const personalInfo = await getData();
   const markdown = personalInfo?.about ?? "";
   const MarkDownComponent: JSX.Element = await Markdown({ source: markdown, className: "w-3/4 max-sm:w-auto" });
-  const lastIndex = (personalInfo?.languageStatus.length ?? 1) - 1
   return (
     <>
       <section className="h-[90vh] mx-8 flex flex-col justify-center">
@@ -101,8 +111,8 @@ export default async function Home() {
             </div>
           </section>
           <section className="mx-8 mt-20 mb-8 max-sm:mx-2">
-            <h2 className={cn("text-3xl max-sm:text-xl font-medium my-8 mb-16")}>Technical Skills</h2>
-            <ResizeScroll personalInfo={personalInfo} lastIndex={lastIndex} />
+            <h2 className={cn("text-3xl max-sm:text-xl font-medium my-8 mb-16 max-sm:mx-2")}>Technical Skills</h2>
+            <ResizeScroll personalInfo={personalInfo} />
           </section>
         </>)}
     </>

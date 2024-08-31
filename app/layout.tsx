@@ -18,6 +18,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currentYear = new Date().getFullYear();
+
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={fredoka.className + " mt-20"}>
@@ -29,7 +31,7 @@ export default function RootLayout({
           <Navbar />
           {/* <CustomCursor /> */}
           {children}
-          <p className="text-center pt-3 mb-2">Akash M © 2024</p>
+          <p className="text-center pt-3 mb-2">Akash M © {currentYear}</p>
           <Toaster />
         </ThemeProvider>
       </body>

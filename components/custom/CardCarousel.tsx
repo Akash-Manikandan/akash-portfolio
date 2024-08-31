@@ -55,8 +55,8 @@ const CardCarousel = ({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="-left-16 max-md:left-0 max-md:-translate-y-1/2 max-md:top-auto max-md:mt-4" />
-      <CarouselNext className="-right-16 max-md:left-10 max-md:-translate-y-1/2 max-md:top-auto max-md:mt-4" />
+      <CarouselPrevious className="left-2 z-40 max-lg:left-0 max-lg:-translate-y-1/2 max-lg:top-auto max-lg:mt-4" />
+      <CarouselNext className="right-2 z-40 max-lg:left-10 max-lg:-translate-y-1/2 max-lg:top-auto max-lg:mt-4" />
     </Carousel>
   );
 };

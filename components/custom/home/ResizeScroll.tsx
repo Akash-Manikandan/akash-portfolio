@@ -1,8 +1,20 @@
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import React from "react"
+
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import LogoMarkdown from "../LogoMarkdown";
-import { ScrollBar } from "@/components/ui/scroll-area";
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
+
+import SidePanel from "./SidePanel";
+
+// import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 type PersonalInfo = {
     id: string;
@@ -10,7 +22,11 @@ type PersonalInfo = {
     about: string;
 } & {
     languageStatus: {
-        category: string;
+        category: {
+            id: string;
+            name: string;
+            description: string;
+        },
         data: {
             id: string;
             name: string;
@@ -20,35 +36,82 @@ type PersonalInfo = {
     }[];
 }
 
-const ResizeScroll = ({ personalInfo, lastIndex }: { personalInfo: PersonalInfo, lastIndex: number }) => {
-    const MIN_SIZE = 3;
+const SPLIT = 3;
+
+function splitLanguageStatusIntoPairs(personalInfo: PersonalInfo) {
+    const { languageStatus, ...rest } = personalInfo;
+
+    const splitLanguageStatus = languageStatus.reduce((result, item, index) => {
+        if (index % SPLIT === 0) {
+            result.push([item]);
+        } else {
+            result[result.length - 1].push(item);
+        }
+        return result;
+    }, [] as typeof languageStatus[]);
+
+    return {
+        ...rest,
+        languageStatus: splitLanguageStatus
+    };
+}
+
+
+
+const ResizeScroll = ({ personalInfo }: { personalInfo: PersonalInfo }) => {
+
+    const splitLanguageStatus = splitLanguageStatusIntoPairs(personalInfo);
+
+    const { languageStatus } = splitLanguageStatus;
 
     return (
-        <ResizablePanelGroup autoSaveId="minMax" direction="horizontal" className="my-8" >
-            {personalInfo.languageStatus.map((language, index) => (
-                <React.Fragment key={language.category + index}>
-                    <ResizablePanel defaultSize={(index !== lastIndex) ? MIN_SIZE : 100 - (MIN_SIZE * lastIndex)} order={index + 1}>
-                        <div className="flex items-center px-3">
-                            <h3 className="write-btt">{language.category}</h3>
-                            <ScrollArea>
-                                <div className="ml-3 mb-3 flex justify-center gap-4">
-                                    {language.data.map((data) => (
-                                        <div key={data.id} className="flex flex-col items-center gap-2">
-                                            <div className="w-16 h-16">
-                                                <LogoMarkdown markdown={data.images.pop() ?? ""} content={data.lang} />
+        <>
+            {languageStatus.map((languages, ind) => (
+                <ResizablePanelGroup key={ind} autoSaveId="minMax" direction="horizontal" className="my-8 max-md:px-4" >
+                    {languages.map((language, index) => (
+                        <React.Fragment key={index}>
+                            <ResizablePanel className="min-w-[45px]" defaultSize={100 / SPLIT} order={index + 1}>
+                                <div className="flex items-center px-3">
+                                    <div className="flex flex-col-reverse items-center gap-2 w-8">
+                                        <h3 className="write-btt">{language.category.name}</h3>
+                                        {/* <InfoCircledIcon className="w-4 h-4 -rotate-90" /> */}
+                                    </div>
+                                    <ScrollArea>
+                                        <Sheet>
+                                            <div className="ml-3 mb-3 flex justify-center gap-4">
+                                                {language.data.map((data) => (
+                                                    <React.Fragment key={data.id}>
+                                                        <SheetTrigger asChild>
+                                                            <div className="flex flex-col items-center gap-2">
+                                                                <div className="w-16 h-16">
+                                                                    <LogoMarkdown markdown={data.images.at(0) ?? ""} content={data.lang} tooltip={true} />
+                                                                </div>
+                                                                <p className="whitespace-nowrap drop-shadow-md">{data.name}</p>
+                                                            </div>
+                                                        </SheetTrigger>
+                                                        <SheetContent className="flex flex-col pr-0">
+                                                            <SheetHeader className="pr-6">
+                                                                <SheetTitle>{language.category.name}</SheetTitle>
+                                                                <SheetDescription>
+                                                                    {language.category.description}
+                                                                </SheetDescription>
+                                                            </SheetHeader>
+                                                            <SidePanel content={language.data} />
+                                                        </SheetContent>
+                                                    </React.Fragment>
+                                                ))}
                                             </div>
-                                            <p className="whitespace-nowrap">{data.name}</p>
-                                        </div>
-                                    ))}
+                                        </Sheet>
+                                        <ScrollBar orientation="horizontal" />
+                                    </ScrollArea>
                                 </div>
-                                <ScrollBar orientation="horizontal" />
-                            </ScrollArea>
-                        </div>
-                    </ResizablePanel>
-                    {index !== lastIndex && <ResizableHandle withHandle />}
-                </React.Fragment>
+                            </ResizablePanel>
+                            {(languages.length - 1 !== index) && <ResizableHandle withHandle />}
+                        </React.Fragment >
+                    ))}
+                </ResizablePanelGroup>
             ))}
-        </ResizablePanelGroup>
+        </>
     )
 }
 

@@ -43,8 +43,8 @@ const WorkCarousel = ({ data }: { data: WorkCarouselData }) => {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="max-md:left-5 max-md:-translate-y-1/2 max-md:top-auto max-md:-bottom-8 max-md:mt-4" />
-            <CarouselNext className="max-md:left-16 max-md:-translate-y-1/2 max-md:top-auto max-md:-bottom-8 max-md:mt-4" />
+            <CarouselPrevious className="max-md:left-5 max-md:-translate-y-1/2 max-md:top-auto max-md:-bottom-12 max-md:mt-4" />
+            <CarouselNext className="max-md:left-16 max-md:-translate-y-1/2 max-md:top-auto max-md:-bottom-12 max-md:mt-4" />
         </Carousel>
     )
 }

@@ -126,19 +126,36 @@ const About = async () => {
             />
           </section>
           <Separator orientation="horizontal" className="my-12" />
-          <section className="flex flex-col justify-center items-center gap-3">
-            <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>Favourite Artist</div>
-            <div className="w-[500px] max-md:w-full">
-              <iframe
-                className="rounded-[12px]"
-                src="https://open.spotify.com/embed/artist/06HL4z0CvFAxyc27GXpf02?utm_source=generator&theme=0"
-                width="100%"
-                height="352"
-                frameBorder="0"
-                allowFullScreen={false}
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              />
+          <section className="flex max-md:flex-col justify-between">
+            <div className="flex flex-col flex-1 border-r max-md:border-none">
+              <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>Favourite Artist</div>
+              <div className="p-8">
+                <iframe
+                  className="rounded-[12px]"
+                  src="https://open.spotify.com/embed/artist/06HL4z0CvFAxyc27GXpf02?utm_source=generator&theme=0"
+                  width="100%"
+                  height="352"
+                  frameBorder="0"
+                  allowFullScreen={false}
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col flex-1">
+              <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-5 max-md:mt-10 w-full")}>Favourite Album</div>
+              <div className="p-8">
+                <iframe
+                  className="rounded-[12px]"
+                  src="https://open.spotify.com/embed/album/7aJuG4TFXa2hmE4z1yxc3n?utm_source=generator"
+                  width="100%"
+                  height="352"
+                  frameBorder="0"
+                  allowFullScreen={false}
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </section>
         </div>
