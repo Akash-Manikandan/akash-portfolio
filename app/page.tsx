@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { Alex_Brush, Nunito } from "next/font/google";
 import prisma from "@/lib/database";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import Markdown from "@/components/custom/Markdown";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ResizeScroll from "@/components/custom/home/ResizeScroll";
+import TooltipWrapper from "@/components/custom/TooltipWrapper";
 
 const alexBrush = Alex_Brush({ subsets: ["latin"], weight: ["400"] });
 const nunito = Nunito({ subsets: ["latin"], weight: ["400", "500"] });
@@ -111,7 +112,12 @@ export default async function Home() {
             </div>
           </section>
           <section className="mx-8 mt-20 mb-8 max-sm:mx-2">
-            <h2 className={cn("text-3xl max-sm:text-xl font-medium my-8 mb-16 max-sm:mx-2")}>Technical Skills</h2>
+            <div className="flex items-center gap-4 max-md:gap-2 my-8 mb-16 max-sm:mx-2">
+              <h2 className={cn("text-3xl max-sm:text-xl font-medium")}>Technical Skills</h2>
+              <TooltipWrapper content="Click on each section to see detailed discription" className="w-fit">
+                <InfoCircledIcon className="w-4 h-4" />
+              </TooltipWrapper>
+            </div>
             <ResizeScroll personalInfo={personalInfo} />
           </section>
         </>)}

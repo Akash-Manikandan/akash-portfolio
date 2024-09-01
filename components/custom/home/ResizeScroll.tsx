@@ -14,8 +14,6 @@ import {
 
 import SidePanel from "./SidePanel";
 
-// import { InfoCircledIcon } from "@radix-ui/react-icons";
-
 type PersonalInfo = {
     id: string;
     goals: string[];
@@ -69,45 +67,42 @@ const ResizeScroll = ({ personalInfo }: { personalInfo: PersonalInfo }) => {
             {languageStatus.map((languages, ind) => (
                 <ResizablePanelGroup key={ind} autoSaveId="minMax" direction="horizontal" className="my-8 max-md:px-4" >
                     {languages.map((language, index) => (
-                        <React.Fragment key={index}>
+                        <Sheet key={index}>
                             <ResizablePanel className="min-w-[45px]" defaultSize={100 / SPLIT} order={index + 1}>
                                 <div className="flex items-center px-3">
                                     <div className="flex flex-col-reverse items-center gap-2 w-8">
                                         <h3 className="write-btt">{language.category.name}</h3>
-                                        {/* <InfoCircledIcon className="w-4 h-4 -rotate-90" /> */}
                                     </div>
                                     <ScrollArea>
-                                        <Sheet>
-                                            <div className="ml-3 mb-3 flex justify-center gap-4">
-                                                {language.data.map((data) => (
-                                                    <React.Fragment key={data.id}>
-                                                        <SheetTrigger asChild>
-                                                            <div className="flex flex-col items-center gap-2">
-                                                                <div className="w-16 h-16">
-                                                                    <LogoMarkdown markdown={data.images.at(0) ?? ""} content={data.lang} tooltip={true} />
-                                                                </div>
-                                                                <p className="whitespace-nowrap drop-shadow-md">{data.name}</p>
+                                        <div className="ml-3 mb-3 flex justify-center gap-4">
+                                            {language.data.map((data) => (
+                                                <React.Fragment key={data.id}>
+                                                    <SheetTrigger asChild>
+                                                        <div className="flex flex-col items-center gap-2 cursor-pointer">
+                                                            <div className="w-16 h-16">
+                                                                <LogoMarkdown markdown={data.images.at(0) ?? ""} content={data.lang} tooltip={false} />
                                                             </div>
-                                                        </SheetTrigger>
-                                                        <SheetContent className="flex flex-col pr-0">
-                                                            <SheetHeader className="pr-6">
-                                                                <SheetTitle>{language.category.name}</SheetTitle>
-                                                                <SheetDescription>
-                                                                    {language.category.description}
-                                                                </SheetDescription>
-                                                            </SheetHeader>
-                                                            <SidePanel content={language.data} />
-                                                        </SheetContent>
-                                                    </React.Fragment>
-                                                ))}
-                                            </div>
-                                        </Sheet>
+                                                            <p className="whitespace-nowrap drop-shadow-md">{data.name}</p>
+                                                        </div>
+                                                    </SheetTrigger>
+                                                    <SheetContent className="flex flex-col pr-0">
+                                                        <SheetHeader className="pr-6">
+                                                            <SheetTitle>{language.category.name}</SheetTitle>
+                                                            <SheetDescription>
+                                                                {language.category.description}
+                                                            </SheetDescription>
+                                                        </SheetHeader>
+                                                        <SidePanel content={language.data} />
+                                                    </SheetContent>
+                                                </React.Fragment>
+                                            ))}
+                                        </div>
                                         <ScrollBar orientation="horizontal" />
                                     </ScrollArea>
                                 </div>
                             </ResizablePanel>
                             {(languages.length - 1 !== index) && <ResizableHandle withHandle />}
-                        </React.Fragment >
+                        </Sheet>
                     ))}
                 </ResizablePanelGroup>
             ))}
