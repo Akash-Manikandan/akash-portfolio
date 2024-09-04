@@ -67,4 +67,4 @@ This project is licensed under the MIT License.
 
 Thank you for visiting my portfolio! Feel free to explore and get in touch if you have any questions or opportunities.
 
-❤️ Thanks to React, Next.js, Tailwind and shadcn team ❤️
+❤️ Thanks to React, Next.js, Tailwind, shadcn, Prisma and Vercel team ❤️
