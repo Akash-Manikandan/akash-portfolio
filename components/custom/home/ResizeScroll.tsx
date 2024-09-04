@@ -18,7 +18,6 @@ type PersonalInfo = {
     id: string;
     goals: string[];
     about: string;
-} & {
     languageStatus: {
         category: {
             id: string;
