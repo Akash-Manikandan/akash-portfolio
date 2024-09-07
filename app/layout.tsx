@@ -22,7 +22,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={fredoka.className + " mt-20"}>
+      <body className={fredoka.className + " mt-20 transition-colors duration-500"}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
