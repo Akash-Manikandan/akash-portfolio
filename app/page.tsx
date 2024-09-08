@@ -40,6 +40,9 @@ const getData = async () => {
             images: true,
             name: true,
           },
+          orderBy: {
+            percent: "desc",
+          },
         },
       },
     });
