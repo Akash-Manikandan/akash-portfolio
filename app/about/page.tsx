@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });
 
-export const revalidate = 86400;
+export const revalidate = 10800;
 
 const getData = async () => {
   try {
@@ -31,7 +31,10 @@ const getData = async () => {
             location: true,
             marks: true,
             duration: true,
-          }
+          },
+          orderBy: {
+            order: "desc",
+          },
         },
         developer: {
           select: {
@@ -40,7 +43,7 @@ const getData = async () => {
             github: true,
             about: true,
             specifics: true,
-          }
+          },
         },
         professional: {
           select: {
@@ -58,21 +61,21 @@ const getData = async () => {
                   select: {
                     name: true,
                     id: true,
-                  }
-                }
+                  },
+                },
               },
               orderBy: {
-                order: "desc"
-              }
+                order: "desc",
+              },
             },
             description: true,
             location: true,
           },
           orderBy: {
-            createdAt: "desc"
-          }
-        }
-      }
+            createdAt: "desc",
+          },
+        },
+      },
     });
     return data ? [data] : [];
   } catch (error) {
@@ -92,28 +95,52 @@ const About = async () => {
             <>
               <section className="flex flex-col gap-3 mx-10 mb-10 max-sm:m-2 text-justify">
                 {data.developer.specifics.map((specific, index) => (
-                  <p key={index} className="last:text-xl last:text-center last:pt-6">{specific}</p>
+                  <p
+                    key={index}
+                    className="last:text-xl last:text-center last:pt-6"
+                  >
+                    {specific}
+                  </p>
                 ))}
               </section>
               <Separator orientation="horizontal" className="my-12" />
             </>
           )}
-          <h2 className={cn(lora.className, "font-bold text-3xl mb-10 ml-3")}>Education</h2>
+          <h2 className={cn(lora.className, "font-bold text-3xl mb-10 ml-3")}>
+            Education
+          </h2>
           <section className="grid grid-cols-2 gap-6 items-stretch max-sm:flex max-sm:flex-col">
             {data.education.map((education, index) => (
-              <EducationCard key={education.id} className={(index === 0 && data.education.length) ? "col-span-2" : ""} education={education} />
+              <EducationCard
+                key={education.id}
+                className={
+                  index === 0 && data.education.length ? "col-span-2" : ""
+                }
+                education={education}
+              />
             ))}
           </section>
           <Separator orientation="horizontal" className="my-12" />
-          <h2 className={cn(lora.className, "font-bold text-3xl mb-10 ml-3")}>Professional Experience</h2>
+          <h2 className={cn(lora.className, "font-bold text-3xl mb-10 ml-3")}>
+            Professional Experience
+          </h2>
           <section className="grid grid-cols-2 gap-6 items-stretch">
             {data.professional.map((experience) => (
-              <ProfessionalCard key={experience.id} className={"col-span-2"} experience={experience} />
+              <ProfessionalCard
+                key={experience.id}
+                className={"col-span-2"}
+                experience={experience}
+              />
             ))}
           </section>
           <Separator orientation="horizontal" className="my-12" />
           <section className="flex w-full items-center justify-center my-5 flex-col gap-5">
-            <h2 className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>
+            <h2
+              className={cn(
+                lora.className,
+                "font-bold text-3xl mb-6 ml-3 w-full"
+              )}
+            >
               My Resume
             </h2>
             <iframe
@@ -128,7 +155,14 @@ const About = async () => {
           <Separator orientation="horizontal" className="my-12" />
           <section className="flex max-md:flex-col justify-between">
             <div className="flex flex-col flex-1 border-r max-md:border-none">
-              <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-3 w-full")}>Favourite Artist</div>
+              <div
+                className={cn(
+                  lora.className,
+                  "font-bold text-3xl mb-6 ml-3 w-full"
+                )}
+              >
+                Favourite Artist
+              </div>
               <div className="p-8">
                 <iframe
                   className="rounded-[12px]"
@@ -143,7 +177,14 @@ const About = async () => {
               </div>
             </div>
             <div className="flex flex-col flex-1">
-              <div className={cn(lora.className, "font-bold text-3xl mb-6 ml-5 max-md:mt-10 w-full")}>Favourite Album</div>
+              <div
+                className={cn(
+                  lora.className,
+                  "font-bold text-3xl mb-6 ml-5 max-md:mt-10 w-full"
+                )}
+              >
+                Favourite Album
+              </div>
               <div className="p-8">
                 <iframe
                   className="rounded-[12px]"
@@ -162,6 +203,6 @@ const About = async () => {
       ))}
     </>
   );
-}
+};
 
 export default About;

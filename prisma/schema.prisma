@@ -37,6 +37,7 @@ model Education {
   description    String
   marks          String
   images         String[]
+  order          Int          @default(0)
   PersonalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
   personalInfoId String
 }

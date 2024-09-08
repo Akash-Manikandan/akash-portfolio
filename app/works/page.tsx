@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   description: "Portfolio of Akash M",
 };
 
-export const revalidate = 86400;
+export const revalidate = 10800;
 
 const getData = async () => {
   try {
@@ -81,13 +81,19 @@ const Works = async () => {
             <div className="flex flex-col justify-between">
               <CardHeader>
                 <CardTitle className="text-xl flex">
-                  <Link className="w-full flex-1 font-medium max-md:mt-4" href={`/works/${item.id}`}>
+                  <Link
+                    className="w-full flex-1 font-medium max-md:mt-4"
+                    href={`/works/${item.id}`}
+                  >
                     {item.name}
                   </Link>
                 </CardTitle>
                 <CardDescription>
                   <p className="text-lg text-justify py-4">{item.tagLine}</p>
-                  <Link href={`/works/${item.id}`} className="flex gap-2 flex-wrap">
+                  <Link
+                    href={`/works/${item.id}`}
+                    className="flex gap-2 flex-wrap"
+                  >
                     {item.techStack.map((tech) => (
                       <TechBadge tech={tech} key={tech.id} />
                     ))}
@@ -100,13 +106,25 @@ const Works = async () => {
                 </a>
                 <HoverCard>
                   <HoverCardTrigger target="_blank" href={item.github}>
-                    <GitHubLogoIcon className="drop-shadow-md" width={30} height={30} />
+                    <GitHubLogoIcon
+                      className="drop-shadow-md"
+                      width={30}
+                      height={30}
+                    />
                   </HoverCardTrigger>
                   <HoverCardContent>
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-3 items-center">
-                        <GitHubLogoIcon className="drop-shadow-md" width={35} height={35} />
-                        <a className="underline" href={item.github} target="_blank">
+                        <GitHubLogoIcon
+                          className="drop-shadow-md"
+                          width={35}
+                          height={35}
+                        />
+                        <a
+                          className="underline"
+                          href={item.github}
+                          target="_blank"
+                        >
                           @{getLastUrlSegment(item.github)}
                         </a>
                       </div>

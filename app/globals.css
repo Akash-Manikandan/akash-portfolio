@@ -147,6 +147,10 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -154,6 +158,42 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Light Theme Scrollbar */
+  .light ::-webkit-scrollbar-track {
+    background-color: hsl(var(--background)); /* Light background */
+  }
+
+  .light ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--foreground)); /* Light foreground */
+    border-radius: 2rem;
+  }
+
+  .light ::-webkit-scrollbar-track:hover {
+    background-color: hsl(var(--card)); /* Darker card color on hover */
+  }
+
+  .light ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--foreground)); /* Keep thumb same on hover */
+  }
+
+  /* Dark Theme Scrollbar */
+  .dark ::-webkit-scrollbar-track {
+    background-color: hsl(var(--background)); /* Dark background */
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--foreground)); /* Lighter foreground */
+    border-radius: 2rem;
+  }
+
+  .dark ::-webkit-scrollbar-track:hover {
+    background-color: hsl(var(--card)); /* Darker card color on hover */
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--foreground)); /* Keep thumb same on hover */
   }
 }
 
@@ -204,47 +244,4 @@
 .write-btt {
   writing-mode: vertical-lr;
   transform: scale(-1);
-}
-
-/* Customize website's scrollbar like Mac OS
-Not supports in Firefox and IE */
-.scrollbar {
-  overflow: overlay
-}
-
-/* total width */
-.scrollbar::-webkit-scrollbar {
-  background-color: rgba(0, 0, 0, 0);
-  width: 16px;
-  height: 16px;
-  z-index: 999999;
-}
-
-/* background of the scrollbar except button or resizer */
-.scrollbar::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0);
-}
-
-/* scrollbar itself */
-.scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: 16px;
-  border: 0px solid #fff;
-}
-
-/* set button(top and bottom of the scrollbar) */
-.scrollbar::-webkit-scrollbar-button {
-  display: none;
-}
-
-/* scrollbar when element is hovered */
-.scrollbar:hover::-webkit-scrollbar-thumb {
-  background-color: #a0a0a5;
-  border: 4px solid #fff;
-}
-
-/* scrollbar when scrollbar is hovered */
-.scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #a0a0a5;
-  border: 4px solid #f4f4f4
 }
