@@ -13,7 +13,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon, Link2Icon } from "@radix-ui/react-icons";
 import TextEllipsis from "@/components/custom/TextEllipsis";
 import TooltipWrapper from "@/components/custom/TooltipWrapper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -127,9 +127,24 @@ async function WorkPage({ params }: { params: { id: string } }) {
       {data.map((item) => (
         <div key={item.id} className="pt-12 px-8">
           <div className="flex gap-4 flex-col">
-            <h1 className={cn(lora.className, "font-bold text-4xl")}>
-              {item.name}
-            </h1>
+            <div className="flex gap-4">
+              <h1 className={cn(lora.className, "font-bold text-4xl")}>
+                {item.name}
+              </h1>
+              <TooltipWrapper
+                content={item.deployment}
+                asChild={true}
+                className="w-fit"
+              >
+                <a
+                  className="flex items-center"
+                  target="_blank"
+                  href={item.deployment}
+                >
+                  <Link2Icon width={20} height={20} />
+                </a>
+              </TooltipWrapper>
+            </div>
             <h5 className="text-2xl">{item.tagLine}</h5>
           </div>
           <Separator orientation="horizontal" className="my-10" />
@@ -187,11 +202,8 @@ async function WorkPage({ params }: { params: { id: string } }) {
               <div className="flex flex-col gap-2">
                 <div className="flex items-end gap-1">
                   <h2 className="text-xl font-medium uppercase max-md:capitalize">
-                    Developer
+                    Developer{item.developers.length > 1 && "s"}
                   </h2>
-                  <span className="text-xl uppercase max-md:lowercase">
-                    (s)
-                  </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {item.developers.map((developer) => (
@@ -242,19 +254,45 @@ async function WorkPage({ params }: { params: { id: string } }) {
               {item.github && (
                 <div className="flex flex-col gap-4">
                   <h2 className="text-xl font-medium uppercase max-md:capitalize">
-                    GitHub
+                    {item.additionalRepo ? "Repositories" : "Repository"}
                   </h2>
-                  <div className="flex gap-3 items-center">
-                    <GitHubLogoIcon width={35} height={35} />
-                    <TooltipWrapper content={`${item.name}`} className="w-fit">
-                      <a
-                        className="underline"
-                        href={item.github}
-                        target="_blank"
+                  <div className="flex gap-4 flex-wrap">
+                    <div className="flex gap-3 items-center">
+                      <GitHubLogoIcon width={35} height={35} />
+                      <TooltipWrapper
+                        content={
+                          item.additionalRepo
+                            ? "Frontend Repository"
+                            : `${item.name}`
+                        }
+                        className="w-fit"
                       >
-                        @{getLastUrlSegment(item.github)}
-                      </a>
-                    </TooltipWrapper>
+                        <a
+                          className="underline"
+                          href={item.github}
+                          target="_blank"
+                        >
+                          @{getLastUrlSegment(item.github)}
+                        </a>
+                      </TooltipWrapper>
+                    </div>
+                    {item.additionalRepo && (
+                      <div className="flex gap-3 items-center">
+                        <GitHubLogoIcon width={35} height={35} />
+                        <TooltipWrapper
+                          content={"Backend Repository"}
+                          className="w-fit"
+                        >
+                          <a
+                            className="underline"
+                            href={item.additionalRepo}
+                            target="_blank"
+                          >
+                            @{getLastUrlSegment(item.additionalRepo)}
+                          </a>
+                        </TooltipWrapper>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
