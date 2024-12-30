@@ -97,7 +97,6 @@ const About = async () => {
                 {data.developer.specifics.map((specific, index) => (
                   <p
                     key={index}
-                    className="last:text-xl last:text-center last:pt-6"
                   >
                     {specific}
                   </p>
