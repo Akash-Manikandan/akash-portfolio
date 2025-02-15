@@ -3,11 +3,17 @@ import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/database";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import { MailIcon } from "lucide-react";
+import { Metadata } from "next";
 
 type CreationData = {
   message: string;
   username: string;
   email: string;
+};
+
+export const metadata: Metadata = {
+  title: "Akash M - Contact",
+  description: "Portfolio of Akash M",
 };
 
 const getData = async () => {
