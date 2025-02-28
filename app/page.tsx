@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 import Link from "next/link";
 import { Alex_Brush, Nunito } from "next/font/google";
 import prisma from "@/lib/database";

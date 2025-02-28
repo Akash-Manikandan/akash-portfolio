@@ -5,7 +5,7 @@ import { CaretDownIcon, LetterCaseCapitalizeIcon } from "@radix-ui/react-icons"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ToolbarButton } from "../toolbar-button"
 import { ShortcutKey } from "../shortcut-key"
-import React, { useCallback, useMemo } from "react"
+import React, { useCallback, useMemo, type JSX } from "react";
 import { FormatAction } from "../../types"
 
 interface TextStyle extends Omit<FormatAction, "value" | "icon" | "action" | "isActive" | "canExecute"> {

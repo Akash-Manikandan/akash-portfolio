@@ -114,7 +114,8 @@ const getWork = async (id: string) => {
   }
 };
 
-async function WorkPage({ params }: { params: { id: string } }) {
+async function WorkPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const data = await getWork(params.id);
 
   const handleNavigation = async (id: string | undefined) => {

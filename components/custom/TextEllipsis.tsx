@@ -1,19 +1,21 @@
 "use client"
-import LinesEllipsis from "react-lines-ellipsis";
 
 function TextEllipsis({ text, maxLine }: { text: string; maxLine: string }) {
+  const numLines = Number.parseInt(maxLine, 10) ?? null
+
   return (
-    <div className="text-left">
-      {" "}
-      <LinesEllipsis
-        text={text}
-        maxLine={maxLine}
-        ellipsis="..."
-        trimRight
-        basedOn="letters"
-      />
+    <div
+      className="text-left overflow-hidden"
+      style={{
+        display: "-webkit-box",
+        WebkitLineClamp: numLines,
+        WebkitBoxOrient: "vertical",
+        textOverflow: "ellipsis",
+      }}
+    >
+      {text}
     </div>
-  );
+  )
 }
 
-export default TextEllipsis;
+export default TextEllipsis
