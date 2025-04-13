@@ -116,7 +116,7 @@ export default async function Home() {
                 <CardContent className="py-4">
                   <Table>
                     <TableBody>
-                      {personalInfo.goals.map((goal, index) => (
+                      {personalInfo.goals.map((goal: string, index: number) => (
                         <TableRow key={index}>
                           <TableCell
                             className={cn(
