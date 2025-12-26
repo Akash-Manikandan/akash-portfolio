@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://akash-m.vercel.app/sitemap.xml
 
 # Disallow access to API routes
 Disallow: /api/
@@ -14,12 +14,3 @@ Disallow: /static/
 
 # Allow images and assets
 Allow: /images/
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.png$
-Allow: /*.gif$
-Allow: /*.svg$
-Allow: /*.webp$
-
-# Crawl-delay (optional, be respectful)
-Crawl-delay: 1

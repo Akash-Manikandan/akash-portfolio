@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/custom/Navbar";
 import Footer from "@/components/custom/Footer";
+import JsonLdSchema from "@/components/custom/JsonLdSchema";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
@@ -16,9 +17,9 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Akash M — Full-Stack Developer Portfolio",
+  title: "Akash M — Full-Stack Developer | Next.js & TypeScript",
   description:
-    "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+    "Full-stack developer portfolio featuring Next.js projects, TypeScript expertise, and modern web apps. Open to collaboration and new opportunities.",
   alternates: {
     canonical: "/",
   },
@@ -27,15 +28,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Akash M Portfolio",
-    title: "Akash M — Full-Stack Developer Portfolio",
+    title: "Akash M — Full-Stack Developer | Next.js & TypeScript",
     description:
-      "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+      "Full-stack developer portfolio featuring Next.js projects, TypeScript expertise, and modern web apps. Open to collaboration and new opportunities.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Akash M — Full-Stack Developer Portfolio",
+    title: "Akash M — Full-Stack Developer | Next.js & TypeScript",
     description:
-      "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+      "Full-stack developer portfolio featuring Next.js projects, TypeScript expertise, and modern web apps. Open to collaboration and new opportunities.",
   },
 };
 
@@ -48,6 +49,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <JsonLdSchema />
+      </head>
       <body
         className={fredoka.className + " mt-20 transition-colors duration-500"}
       >

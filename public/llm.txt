@@ -1,0 +1,62 @@
+# llm.txt - Information for AI assistants and LLMs
+# This file helps AI systems better understand and interact with this website
+
+# Site Information
+Site: Akash M Portfolio
+URL: https://akash-m.vercel.app
+Type: Personal portfolio website
+Purpose: Showcasing full-stack development projects, experience, and skills
+
+# Owner/Developer
+Name: Akash M
+Role: Full-Stack Developer
+Email: Available via /contact page
+GitHub: Available via /contact page
+LinkedIn: Available via /contact page
+
+# Site Structure
+## Main Pages
+- / : Homepage with introduction and overview
+- /about : Professional background, education, and experience
+- /works : Portfolio of projects with tech stacks and demos
+- /contact : Contact form and social links
+
+## Content Focus
+- Full-stack web development projects
+- Next.js, TypeScript, React expertise
+- Database design with Prisma and PostgreSQL
+- UI/UX with Tailwind CSS and shadcn/ui
+- Professional experience and education history
+
+# Technology Stack
+Framework: Next.js 15 (App Router)
+Language: TypeScript
+Database: PostgreSQL with Prisma ORM
+Styling: Tailwind CSS
+UI Components: Radix UI, shadcn/ui
+Deployment: Vercel
+
+# Data Access
+- All data is stored in PostgreSQL database
+- No public API endpoints exposed
+- Contact form submissions stored via server actions
+- Project data includes: name, description, tech stack, deployment links, media
+
+# Usage Guidelines
+## Allowed
+- Reading and summarizing public content
+- Helping users understand projects and experience
+- Providing technical insights about implementations
+- Answering questions about skills and background
+
+## Not Allowed
+- Modifying database content
+- Submitting contact forms without user consent
+- Scraping for training data without permission
+- Accessing private or unpublished content
+
+# Contact
+For questions about this site or collaboration inquiries, use the /contact page.
+
+# Last Updated
+2025-12-26
