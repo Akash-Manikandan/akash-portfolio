@@ -79,7 +79,7 @@ const Navbar = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             {listNav.map((item, index) => (
-              <Link href={item.href} key={`${index}`} passHref>
+              <Link href={item.href} key={`${index}`}>
                 <DropdownMenuItem>{item.title}</DropdownMenuItem>
               </Link>
             ))}
@@ -91,14 +91,22 @@ const Navbar = () => {
           <NavigationMenuList>
             {listNav.map((item, index) => (
               <NavigationMenuItem key={`${index}`}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink
-                    active={pathname.includes(item.title.toLowerCase())}
-                    className={cn(navigationMenuTriggerStyle(), pathname.includes(item.title.toLowerCase()) ? "" : "bg-transparent")}
-                  >
-                    <p className="text-lg font-medium drop-shadow-md">{item.title}</p>
-                  </NavigationMenuLink>
-                </Link>
+                <NavigationMenuLink
+                  asChild
+                  active={pathname.includes(item.title.toLowerCase())}
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    pathname.includes(item.title.toLowerCase())
+                      ? ""
+                      : "bg-transparent"
+                  )}
+                >
+                  <Link href={item.href}>
+                    <p className="text-lg font-medium drop-shadow-md">
+                      {item.title}
+                    </p>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
