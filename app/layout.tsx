@@ -3,6 +3,7 @@ import { Fredoka } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/custom/Navbar";
+import Footer from "@/components/custom/Footer";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
@@ -10,10 +11,29 @@ import { Analytics } from "@vercel/analytics/react";
 
 const fredoka = Fredoka({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://akash-m.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Akash M — Full-Stack Developer Portfolio",
   description:
     "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Akash M Portfolio",
+    title: "Akash M — Full-Stack Developer Portfolio",
+    description:
+      "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Akash M — Full-Stack Developer Portfolio",
+    description:
+      "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +41,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentYear = new Date().getFullYear();
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
@@ -33,11 +52,10 @@ export default function RootLayout({
           <Navbar />
           {/* <CustomCursor /> */}
           {children}
-          <p className="text-center pt-3 mb-2">Akash M © {currentYear}</p>
+          <Footer />
           <Toaster />
         </ThemeProvider>
         <Analytics />
-
         {gaId ? (
           <>
             <Script
@@ -46,9 +64,9 @@ export default function RootLayout({
             />
             <Script id="ga4" strategy="afterInteractive">
               {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${gaId}');`}
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${gaId}');`}
             </Script>
           </>
         ) : null}
