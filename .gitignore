@@ -37,3 +37,8 @@ next-env.d.ts
 
 
 .env
+/generated/
+/generated/prisma/
+generated/
+generated/prisma/
+generated/**
