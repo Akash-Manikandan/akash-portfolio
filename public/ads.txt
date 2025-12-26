@@ -1,0 +1,4 @@
+# ads.txt
+# This site currently does not sell advertising.
+# If you start running ads later, replace this file with authorized digital seller entries.
+# Spec: https://iabtechlab.com/ads-txt/

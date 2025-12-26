@@ -23,8 +23,9 @@ import { Metadata } from "next";
 import { getLastUrlSegment } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Akash M - Works",
-  description: "Portfolio of Akash M",
+  title: "Akash M — Selected Projects & Work",
+  description:
+    "Browse selected software projects by Akash M, from web apps to full-stack builds. Each project includes the tech stack, links, media, and a concise overview of goals and outcomes.",
 };
 
 export const revalidate = 10800;

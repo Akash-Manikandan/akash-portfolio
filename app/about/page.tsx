@@ -7,8 +7,9 @@ import { Metadata } from "next";
 import { Lora } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "Akash M - About",
-  description: "Portfolio of Akash M",
+  title: "About Akash M — Experience & Education",
+  description:
+    "Learn about Akash M's background, education, and professional experience as a full-stack developer. Discover strengths, preferred technologies, and highlights from roles and continuous learning.",
 };
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });
@@ -95,11 +96,7 @@ const About = async () => {
             <>
               <section className="flex flex-col gap-3 mx-10 mb-10 max-sm:m-2 text-justify">
                 {data.developer.specifics.map((specific, index) => (
-                  <p
-                    key={index}
-                  >
-                    {specific}
-                  </p>
+                  <p key={index}>{specific}</p>
                 ))}
               </section>
               <Separator orientation="horizontal" className="my-12" />

@@ -32,8 +32,9 @@ type WithNavigation<T> = T & {
 };
 
 export const metadata: Metadata = {
-  title: "Akash M - Works",
-  description: "Portfolio of Akash M",
+  title: "Akash M — Project Details & Case Study",
+  description:
+    "Read a detailed case study of a project by Akash M: the problem statement, approach, key features, tech stack, screenshots, and links to the live demo and source code where available.",
 };
 export const revalidate = 10800;
 
