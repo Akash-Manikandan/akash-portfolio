@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: "Akash M — Selected Projects & Work",
   description:
     "Browse selected software projects by Akash M, from web apps to full-stack builds. Each project includes the tech stack, links, media, and a concise overview of goals and outcomes.",
+  alternates: {
+    canonical: "/works",
+  },
 };
 
 export const revalidate = 10800;

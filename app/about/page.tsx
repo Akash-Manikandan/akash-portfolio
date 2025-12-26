@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "About Akash M — Experience & Education",
   description:
     "Learn about Akash M's background, education, and professional experience as a full-stack developer. Discover strengths, preferred technologies, and highlights from roles and continuous learning.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const lora = Lora({ subsets: ["latin"], weight: ["400", "700"] });

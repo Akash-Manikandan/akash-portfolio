@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "Akash M — Full-Stack Developer Portfolio",
   description:
     "Explore Akash M's full-stack developer portfolio with selected projects, case studies, and experience. Built with Next.js, TypeScript, and Prisma. Open to collaboration and roles.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

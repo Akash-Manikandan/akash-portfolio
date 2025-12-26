@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "Contact Akash M — Email & Social Links",
   description:
     "Get in touch with Akash M for freelance work, collaboration, or full-time opportunities. Send a message directly, or connect via email and social profiles like GitHub and LinkedIn.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 const getData = async () => {
